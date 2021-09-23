@@ -1,6 +1,6 @@
 let click = document.querySelector("#boutonClic");
 click.addEventListener("click", event => {
-  click.innerText = event.detail;
+  click.innerHTML = event.detail;
   if (event.detail === 5) {
     click.innerHTML = "Bravo, bel échauffement !"
   }
