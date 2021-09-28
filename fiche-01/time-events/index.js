@@ -15,7 +15,7 @@ function pause() {
     clearInterval(horloge);
     booleanSwitch = false;
     boutton.innerText = "Start";
-    boutton.style.backgroundColor = "blue";
+    boutton.style.backgroundColor = "green";
   } else {
     horloge = setInterval(clock, 1000);
     booleanSwitch = true;
