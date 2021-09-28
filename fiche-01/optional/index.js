@@ -1,23 +1,19 @@
 // source : https://www.pierre-giraud.com/afficher-cacher-div-javascript/ 
 
-let togg1 = document.getElementById("togg1");
-let togg2 = document.getElementById("togg2");
 let d1 = document.getElementById("d1");
 let d2 = document.getElementById("d2");
-togg1.addEventListener("click", () => {
-  if(getComputedStyle(d1).display != "none"){
-    d1.style.display = "none";
-  } else {
-    d1.style.display = "block";
-  }
-})
+let p1 = document.getElementById("p1");
+let l1 = document.getElementById("l1");
 
-function togg(){
-  if(getComputedStyle(d2).display != "none"){
-    d2.style.display = "none";
-  } else {
-    d2.style.display = "block";
-  }
-};
-togg2.onclick = togg;
+d1.addEventListener("mouseover", () => {p1.style.display = "block";});
+d1.addEventListener("mouseout", () => {p1.style.display = "none";});
+
+d2.onmouseover = aff;
+function aff(){
+  l1.style.display = "block";
+}
+d2.onmouseout = cac;
+function cac(){
+  l1.style.display = "none";
+}
 

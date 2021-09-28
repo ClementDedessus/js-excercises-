@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,18 +8,16 @@
   </head>
   <body>
     <h1>Comment afficher ou masquer un élément HTML</h1>
-    <button id="togg1">Cliquez-moi !</button>
-    <button id="togg2">Cliquez-moi !</button>
     <div id="d1">
       <p>Ce texte appartient au premier div de ma page</p>
-      <p>Ce deuxième paragraphe également</p>
+      <p id="p1" class="hide">Ce deuxième paragraphe également</p>
     </div>
     <div id="d2">
       <p>
         Il existe deux façons de cacher un élément <span>comme un div</span> en
         CSS :
       </p>
-      <ul>
+      <ul id="l1" class="hide">
         <li>Utiliser visibility: hidden</li>
         <li>Utiliser display: none</li>
       </ul>
