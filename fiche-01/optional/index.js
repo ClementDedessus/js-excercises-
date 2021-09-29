@@ -12,10 +12,28 @@ partie2.style.textAlign = "center";
 partie3.style.textAlign = "center";
 partie4.style.textAlign = "center";
 
-//mouseover pour le texte 
-partie1.addEventListener("mouseover", () => {partie2.style.display = "block";});
-partie1.addEventListener("mouseout", () => {partie2.style.display = "none";});
+//mouseover pour le texte
+partie1.addEventListener("mouseover", () => {
+  partie2.style.display = "block";
+});
+partie1.addEventListener("mouseout", () => {
+  partie2.style.display = "none";
+});
 
-//mouseover pour l'image 
-partie3.addEventListener("mouseover", () => {partie4.style.display = "block";});
-partie3.addEventListener("mouseout", () => {partie4.style.display = "none";});
+//mouseover pour l'image
+partie3.addEventListener("mouseover", () => {
+  partie4.style.display = "block";
+});
+partie3.addEventListener("mouseout", () => {
+  partie4.style.display = "none";
+});
+
+//boutton
+const dateTimeNow = new Date();
+
+function addDateTime(message) {
+  return dateTimeNow + message;
+}
+boutton.addEventListener("click", () => {
+  alert(addDateTime(""));
+});
