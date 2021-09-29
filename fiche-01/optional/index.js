@@ -2,10 +2,15 @@ let partie1 = document.getElementById("partie1");
 let partie2 = document.getElementById("partie2");
 let partie3 = document.getElementById("partie3");
 let partie4 = document.getElementById("partie4");
+let boutton = document.getElementById("myBtn");
 
 partie1.style.color = "green";
 partie2.style.color = "blue";
-//partie3.style.color = "black";
+//partie3.style.color = "red";
+partie1.style.textAlign = "center";
+partie2.style.textAlign = "center";
+partie3.style.textAlign = "center";
+partie4.style.textAlign = "center";
 
 //mouseover pour le texte 
 partie1.addEventListener("mouseover", () => {partie2.style.display = "block";});
