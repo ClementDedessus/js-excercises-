@@ -17,15 +17,15 @@ const main = document.querySelector("main");
 
 array.forEach((item, index) => {
   const div = document.createElement("div");
-  div.innerText = item + " index " + index + " is even ? " + isEven(index).toString;
+  div.innerText = item + " index " + index + " is even ? " + isEven(index).toString();
   div.addEventListener("mouseenter", onMouseEnter);
-  main.apenChild(div);
+  main.appendChild(div);
 });
 
-const newworldimage = document.createElement("img");
-newworldimage.src = mw;
-main.appendChild(newworldimage);
+const newWorldImage = document.createElement("img");
+newWorldImage.src = mw;
+main.appendChild(newWorldImage);
 
-function onMouseEnter(event) {
+/*function onMouseEnter(event) {
   alert("new world" + event.target.innerHTML);
-}
+}*/
