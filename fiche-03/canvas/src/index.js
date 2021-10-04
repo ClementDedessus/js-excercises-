@@ -48,9 +48,15 @@ function drawOneFrame() {
     nombreDeClic++;
     if (nombreDeClic % 2 === 1) {
       window.cancelAnimationFrame(dessin);
-    }
-    if (nombreDeClic % 2 === 0) {
-      window.requestAnimationFrame(dessin);
+    } else {
+      dessin = requestAnimationFrame(drawOneFrame);
     }
   });
+
+  //cube size
+  let plus = document.getElementById("plus");
+  let moins = document.getElementById("moins");
+
+  plus.addEventListener("click", () => {});
+  moins.addEventListener("click", () => {});
 }
