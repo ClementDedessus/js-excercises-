@@ -5,6 +5,7 @@ import "./stylesheets/main.css";
 
 const RECT_NUMBER = 101;
 
+let dessin;
 let myCanvas = document.querySelector("canvas");
 let myContext = myCanvas.getContext("2d");
 let page = document.querySelector("#page");
@@ -34,14 +35,22 @@ function drawOneFrame() {
       20
     );
   }
+
   // Refresh automatically the animation via this recursive call :
-  requestAnimationFrame(drawOneFrame);
+  dessin = requestAnimationFrame(drawOneFrame);
 
   // Slow the animation down via setTimeout
   //requestAnimationFrame(() => setTimeout(drawOneFrame,1000));
 
   //stop the animation
-  myCanvas.addEventListener("click", event => {
-    cancelAnimationFrame(myCanvas);
+  var nombreDeClic = 0;
+  page.addEventListener("click", (event) => {
+    nombreDeClic++;
+    if (nombreDeClic % 2 === 1) {
+      window.cancelAnimationFrame(dessin);
+    }
+    if (nombreDeClic % 2 === 0) {
+      window.requestAnimationFrame(dessin);
+    }
   });
 }
