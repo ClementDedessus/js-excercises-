@@ -26,6 +26,6 @@ const newWorldImage = document.createElement("img");
 newWorldImage.src = mw;
 main.appendChild(newWorldImage);
 
-/*function onMouseEnter(event) {
+function onMouseEnter(event) {
   alert("new world" + event.target.innerHTML);
-}*/
+}
