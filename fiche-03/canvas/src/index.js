@@ -57,6 +57,12 @@ function drawOneFrame() {
   let plus = document.getElementById("plus");
   let moins = document.getElementById("moins");
 
-  plus.addEventListener("click", () => {});
-  moins.addEventListener("click", () => {});
+  plus.addEventListener("click", () => {
+    myCanvas.width = pageWidth - 50;
+    myCanvas.height = pageHeight;
+  });
+  moins.addEventListener("click", () => {
+    myCanvas.width = pageWidth + 50;
+    myCanvas.height = pageHeight;
+  });
 }
