@@ -1,0 +1,7 @@
+### Read all hotels 
+
+GET http://localhost:3000/hotels
+
+### Create an hotel
+
+POST http://localhost:3000/hotels
