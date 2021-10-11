@@ -1,11 +1,13 @@
 // Import Bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
-// Custom styles
-import "./stylesheets/main.css";
 
 const RECT_NUMBER = 101;
+const FPS = 5; // frame per second
+let animationReference; // référence vers l'animation
+let animate = true;
+let size = 5;
+let timer;
 
-let dessin;
 let myCanvas = document.querySelector("canvas");
 let myContext = myCanvas.getContext("2d");
 let page = document.querySelector("#page");
@@ -14,6 +16,7 @@ let pageWidth = page.clientWidth;
 let pageHeight = page.clientHeight;
 myCanvas.width = pageWidth - 20;
 myCanvas.height = pageHeight;
+myContext.fillStyle = "blue";
 
 // call the callback to draw our animation when the browser is ready
 requestAnimationFrame(drawOneFrame);
@@ -24,45 +27,59 @@ function drawOneFrame() {
   // however that would not be optimized.
   myContext.clearRect(0, 0, pageWidth, pageHeight);
 
-  myContext.fillStyle = "blue"; //'rgba(255,0,0,0.5)';//'blue';
+  // deal with a minimum size for rectangles
+  if (size <= 0) size = 1;
 
   //draw dynamically the rectangles at random locations
   for (let i = 0; i < RECT_NUMBER; i++) {
     myContext.fillRect(
       Math.floor(Math.random() * pageWidth),
       Math.floor(Math.random() * pageHeight),
-      20,
-      20
+      size,
+      size
     );
   }
-
   // Refresh automatically the animation via this recursive call :
-  dessin = requestAnimationFrame(drawOneFrame);
+  //requestAnimationFrame(drawOneFrame);
 
-  // Slow the animation down via setTimeout
-  //requestAnimationFrame(() => setTimeout(drawOneFrame,1000));
-
-  //stop the animation
-  var nombreDeClic = 0;
-  page.addEventListener("click", (event) => {
-    nombreDeClic++;
-    if (nombreDeClic % 2 === 1) {
-      window.cancelAnimationFrame(dessin);
-    } else {
-      dessin = requestAnimationFrame(drawOneFrame);
-    }
-  });
-
-  //cube size
-  let plus = document.getElementById("plus");
-  let moins = document.getElementById("moins");
-
-  plus.addEventListener("click", () => {
-    myCanvas.width = pageWidth - 50;
-    myCanvas.height = pageHeight;
-  });
-  moins.addEventListener("click", () => {
-    myCanvas.width = pageWidth + 50;
-    myCanvas.height = pageHeight;
-  });
+  // Slow the animation down via setTimeout.
+  animationReference = requestAnimationFrame(
+    () => (timer = setTimeout(drawOneFrame, 1000 / FPS))
+  );
 }
+
+document.addEventListener("keydown", logKey);
+
+// Manage keyboard key events
+function logKey(e) {
+  switch (e.code) {
+    case "NumpadAdd":
+      e.preventDefault();
+      size += 10;
+      break;
+    case "NumpadSubtract":
+      e.preventDefault();
+      size -= 10;
+      break;
+  }
+}
+
+// Manage the right click
+document.addEventListener("contextmenu", function (e) {
+  e.preventDefault(); // stop the right click to "bubble" and therefore stop it to execute the default action (which is to print the contextual menu)
+  let red = Math.floor(Math.random() * 256); // [0,255]
+  let green = Math.floor(Math.random() * 256);
+  let blue = Math.floor(Math.random() * 256);
+  myContext.fillStyle = "rgba(" + red + "," + green + "," + blue + ",1)";
+});
+
+myCanvas.addEventListener("click", () => {
+  animate = !animate;
+  if (!animate) {
+    cancelAnimationFrame(animationReference);
+    //stop the timeout so that the final drawOneFrame() is not called
+    clearTimeout(timer);
+  } else {
+    animationReference = requestAnimationFrame(drawOneFrame);
+  }
+});
