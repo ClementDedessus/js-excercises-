@@ -13,6 +13,7 @@ router.get("/", function (req, res, next) {
 
 /* Create an hotels */
 router.post("/", function (req, res, next) {
+  console.log("body", req.body); 
   if (!req.body || !req.body.name || !req.body.stars)
     return res.sendStatus(400);
 
