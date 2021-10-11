@@ -27,4 +27,5 @@ router.post("/", function (req, res, next) {
   return res.json(newHotel);
 });
 
+
 module.exports = router;
