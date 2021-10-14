@@ -8,4 +8,5 @@ import NavBar from "./Components/Navbar/Navbar";
 
 NavBar();
 
+
 HomePage();
