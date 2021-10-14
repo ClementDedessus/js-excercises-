@@ -1,59 +1,59 @@
 ######### NORMAL OPERATION  ###########
 
-### Read all pizzas
-GET http://localhost:3000/pizzas
+### Read all films
+GET http://localhost:3001/films
 
-### Read pizza identified by 2
-GET http://localhost:3000/pizzas/2
+### Read film identified by 2
+GET http://localhost:3001/films/2
 
-### Create a pizza
-POST http://localhost:3000/pizzas
+### Create a film
+POST http://localhost:3001/films
 Content-Type: application/json
 
 {
     "title":"Magic Green",
-    "content":"Epinards, Brocolis, Olives vertes, Basilic"
+    "budget":"10 euros"
 }
 
-### Update the pizza identified by 2
-PUT http://localhost:3000/pizzas/2
+### Update the film identified by 2
+PUT http://localhost:3001/films/1
 Content-Type: application/json
 
 {
-    "title":"Magic Green 2"
+    "title":"OSS 117 2"
 }
 
-### Delete pizza identified by 2
-DELETE http://localhost:3000/pizzas/2
+### Delete film identified by 2
+DELETE http://localhost:3001/films/1
 
 
 ######### ERROR OPERATION  ###########
 
-### Read pizza which does not exists
-GET http://localhost:3000/pizzas/100
+### Read film which does not exists
+GET http://localhost:3001/films/100
 
-### Create a pizza without info for a property
-POST http://localhost:3000/pizzas
+### Create a film without info for a property
+POST http://localhost:3001/films
 Content-Type: application/json
 
 {
     "title":"",
-    "content":"Epinards, Brocolis, Olives vertes, Basilic"
+    "duration":"1H30"
 }
 
-### Update for a pizza which does not exist
-PUT http://localhost:3000/pizzas/200
+### Update for a film which does not exist
+PUT http://localhost:3001/films/200
 Content-Type: application/json
 
 {
-    "title":"Magic Green 2"
+    "title":"Titanic"
 }
 
-### Update for a pizza which does not provide any info for a property
-PUT http://localhost:3000/pizzas/1
+### Update for a film which does not provide any info for a property
+PUT http://localhost:3001/films/1
 Content-Type: application/json
 
 {
-    "title":"Magic Green 2",
-    "content":"1"
+    "title":"Disney",
+    "duration":"2H"
 }
