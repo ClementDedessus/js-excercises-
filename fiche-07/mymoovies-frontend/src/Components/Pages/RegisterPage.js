@@ -1,11 +1,10 @@
 import { Redirect } from "../Router/Router";
-import Navbar from "../Navbar/Navbar";
 import { setSessionObject } from "../../utils/session";
 /**
- * View the Login form :
- * render a login page into the #page div (formerly login function)
+ * View the Register form :
+ * render a register page into the #page div (formerly render function)
  */
-function LoginPage() {
+function RegisterPage() {
   // reset #page div
   const pageDiv = document.querySelector("#page");
   pageDiv.innerHTML = "";
@@ -25,7 +24,7 @@ function LoginPage() {
   password.placeholder = "password";
   password.className = "form-control mb-3";
   const submit = document.createElement("input");
-  submit.value = "Login";
+  submit.value = "Register";
   submit.type = "submit";
   submit.className = "btn btn-danger";
   form.appendChild(username);
@@ -52,7 +51,7 @@ function LoginPage() {
         },
       };
 
-      const response = await fetch("/api/auths/login", options); // fetch return a promise => we wait for the response
+      const response = await fetch("/api/auths/register", options); // fetch return a promise => we wait for the response
 
       if (!response.ok) {
         throw new Error(
@@ -70,9 +69,9 @@ function LoginPage() {
       // call the HomePage via the Router
       Redirect("/");
     } catch (error) {
-      console.error("LoginPage::error: ", error);
+      console.error("RegisterPage::error: ", error);
     }
   }
 }
 
-export default LoginPage;
+export default RegisterPage;

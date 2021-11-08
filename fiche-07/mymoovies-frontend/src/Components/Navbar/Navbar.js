@@ -1,6 +1,8 @@
 import { Navbar as BootstrapNavbar } from "bootstrap";
 import HomePage from "../Pages/HomePage";
 import MooviePage from "../Pages/MooviePage";
+import LoginPage from "../Pages/LoginPage";
+import RegisterPage from "../Pages/RegisterPage";
 
 const navbar = `<nav class="navbar navbar-expand-lg navbar-light bg-success">
 <div class="container-fluid">
@@ -23,7 +25,13 @@ const navbar = `<nav class="navbar navbar-expand-lg navbar-light bg-success">
       </li>
       <li id="loginItem" class="nav-item">
         <a class="nav-link" href="#">Moovies</a>
-      </li>               
+      </li>     
+      <li class="nav-item">
+      <a class="nav-link" href="#" data-uri="/login">Login</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#" data-uri="/register">Register</a>
+    </li>            
     </ul>
   </div>
 </div>
