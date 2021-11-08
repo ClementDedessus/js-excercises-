@@ -1,5 +1,7 @@
 import { Redirect } from "../Router/Router";
 import Navbar from "../Navbar/Navbar";
+import LoginPage from "../Pages/LoginPage";
+import RegisterPage from "../Pages/RegisterPage";
 import { setSessionObject } from "../../utils/session";
 /**
  * View the Login form :

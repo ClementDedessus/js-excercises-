@@ -51,6 +51,10 @@ const Navbar = () => {
         HomePage();
       } else if (e.target.innerHTML === "Moovies") {
         MooviePage();
+      }else if (e.target.innerHTML === "Register") {
+        RegisterPage();
+      }else if (e.target.innerHTML === "Login") {
+        LoginPage();
       }
     });
   });
