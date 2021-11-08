@@ -1,63 +1,79 @@
 import { Navbar as BootstrapNavbar } from "bootstrap";
-import HomePage from "../Pages/HomePage";
-import MooviePage from "../Pages/MooviePage";
-import LoginPage from "../Pages/LoginPage";
-import RegisterPage from "../Pages/RegisterPage";
-
-const navbar = `<nav class="navbar navbar-expand-lg navbar-light bg-success">
-<div class="container-fluid">
-  <a class="navbar-brand" href="#">myMoovies</a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-bs-toggle="collapse"
-    data-bs-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#">Home</a>
-      </li>
-      <li id="loginItem" class="nav-item">
-        <a class="nav-link" href="#">Moovies</a>
-      </li>     
-      <li class="nav-item">
-      <a class="nav-link" href="#" data-uri="/login">Login</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#" data-uri="/register">Register</a>
-    </li>            
-    </ul>
-  </div>
-</div>
-</nav>`;
-
+import { getSessionObject } from "../../utils/session";
+// destructuring assignment
 const Navbar = () => {
-  const header = document.querySelector("header");
-  header.innerHTML += navbar;
-  const navItems = document.querySelectorAll(".nav-link");
+  const navbarWrapper = document.querySelector("#navbarWrapper");
+  let navbar;
+  // Get the user object from the localStorage
+  let user = getSessionObject("user");
 
-  navItems.forEach((item) => {
-    item.addEventListener("click", (e) => {
-      // stop default action of a link
-      e.preventDefault();
-      console.log(`click on ${e.target.innerHTML} navbar item`);
-      if (e.target.innerHTML === "Home") {
-        HomePage();
-      } else if (e.target.innerHTML === "Moovies") {
-        MooviePage();
-      }else if (e.target.innerHTML === "Register") {
-        RegisterPage();
-      }else if (e.target.innerHTML === "Login") {
-        LoginPage();
-      }
-    });
-  });
+  if (!user) {
+    navbar = `
+  <nav class="navbar navbar-expand-lg navbar-light bg-danger">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">e-Pizzeria</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#" data-uri="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" data-uri="/login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" data-uri="/register">Register</a>
+              </li>            
+            </ul>
+          </div>
+        </div>
+      </nav>
+  `;
+    //  <a class="nav-item nav-link disabled" href="#">${user.username}</a>
+  } else {
+    navbar = `
+  <nav class="navbar navbar-expand-lg navbar-light bg-danger">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">e-Pizzeria</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#" data-uri="/">Home</a>
+              </li>    
+              <li class="nav-item">
+                <a class="nav-link" href="#" data-uri="/logout">Logout</a>
+              </li>
+              <li class="nav-item">
+              <a class="nav-item nav-link disabled" href="#">${user.username}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+  `;
+  }
+  navbarWrapper.innerHTML = navbar;
 };
 
 export default Navbar;
