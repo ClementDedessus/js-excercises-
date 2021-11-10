@@ -1,5 +1,5 @@
 import { Navbar as BootstrapNavbar } from "bootstrap";
-import { getSessionObject } from "../../utils/session";
+import { getSessionObject } from "../utils/session";
 // destructuring assignment
 const Navbar = () => {
   const navbarWrapper = document.querySelector("#navbarWrapper");

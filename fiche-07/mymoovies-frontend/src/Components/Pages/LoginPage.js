@@ -1,6 +1,6 @@
 import { Redirect } from "../Router/Router";
 import Navbar from "../Navbar/Navbar";
-import { setSessionObject } from "../../utils/session";
+import { setSessionObject } from "../utils/session";
 /**
  * View the Login form :
  * render a login page into the #page div (formerly login function)

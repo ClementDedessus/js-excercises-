@@ -1,5 +1,5 @@
 import { Redirect } from "../Router/Router";
-import { setSessionObject } from "../../utils/session";
+import { setSessionObject } from "../utils/session";
 /**
  * View the Register form :
  * render a register page into the #page div (formerly render function)

@@ -1,80 +1,82 @@
-import { Redirect } from "../Router/Router";
-import Navbar from "../Navbar/Navbar";
+import HomePage from "../Pages/HomePage";
 import LoginPage from "../Pages/LoginPage";
 import RegisterPage from "../Pages/RegisterPage";
-import { setSessionObject } from "../../utils/session";
+import MooviePage from "../Pages/MooviePage";
+
+
+// Configure your routes here
+const routes = {
+  "/": HomePage,
+  "/login": LoginPage,
+  "/register": RegisterPage,
+  "/mooviePage": MooviePage,
+};
+
 /**
- * View the Login form :
- * render a login page into the #page div (formerly login function)
+ * Deal with call and auto-render of Functional Components following click events
+ * on Navbar, Load / Refresh operations, Browser history operation (back or next) or redirections.
+ * A Functional Component is responsible to auto-render itself : Pages, Header...
  */
-function LoginPage() {
-  // reset #page div
-  const pageDiv = document.querySelector("#page");
-  pageDiv.innerHTML = "";
-  // create a login form
-  const form = document.createElement("form");
-  form.className = "p-5";
-  const username = document.createElement("input");
-  username.type = "text";
-  username.id = "username";
-  username.placeholder = "username";
-  username.required = true;
-  username.className = "form-control mb-3";
-  const password = document.createElement("input");
-  password.type = "password";
-  password.id = "password";
-  password.required = true;
-  password.placeholder = "password";
-  password.className = "form-control mb-3";
-  const submit = document.createElement("input");
-  submit.value = "Login";
-  submit.type = "submit";
-  submit.className = "btn btn-danger";
-  form.appendChild(username);
-  form.appendChild(password);
-  form.appendChild(submit);
 
-  form.addEventListener("submit", onSubmit);
-  pageDiv.appendChild(form);
+const Router = () => {
+  /* Manage click on the Navbar */
+  let navbarWrapper = document.querySelector("#navbarWrapper");
+  navbarWrapper.addEventListener("click", (e) => {
+    // To get a data attribute through the dataset object, get the property by the part of the attribute name after data- (note that dashes are converted to camelCase).
+    let uri = e.target.dataset.uri;
 
-  async function onSubmit(e) {
-    e.preventDefault();
-    const username = document.getElementById("username");
-    const password = document.getElementById("password");
-    console.log("credentials", username.value, password.value);
-    try {
-      const options = {
-        method: "POST", // *GET, POST, PUT, DELETE, etc.
-        body: JSON.stringify({
-          username: username.value,
-          password: password.value,
-        }), // body data type must match "Content-Type" header
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-
-      const response = await fetch("/api/auths/login", options); // fetch return a promise => we wait for the response
-
-      if (!response.ok) {
-        throw new Error(
-          "fetch error : " + response.status + " : " + response.statusText
-        );
+    if (uri) {
+      e.preventDefault();
+      /* use Web History API to add current page URL to the user's navigation history 
+       & set right URL in the browser (instead of "#") */
+      window.history.pushState({}, uri, window.location.origin + uri);
+      /* render the requested component
+      NB : for the components that include JS, we want to assure that the JS included 
+      is not runned when the JS file is charged by the browser
+      therefore, those components have to be either a function or a class*/
+      const componentToRender = routes[uri];
+      if (routes[uri]) {
+        componentToRender();
+      } else {
+        throw Error("The " + uri + " ressource does not exist");
       }
-      const user = await response.json(); // json() returns a promise => we wait for the data
-      console.log("user authenticated", user);
-      // save the user into the localStorage
-      setSessionObject("user", user);
-
-      // Rerender the navbar for an authenticated user : temporary step prior to deal with token
-      Navbar({ isAuthenticated: true });
-
-      // call the HomePage via the Router
-      Redirect("/");
-    } catch (error) {
-      console.error("LoginPage::error: ", error);
     }
-  }
-}
+  });
 
-export default LoginPage;
+  /* Route the right component when the page is loaded / refreshed */
+  window.addEventListener("load", (e) => {
+    const componentToRender = routes[window.location.pathname];
+    if (!componentToRender)
+      throw Error(
+        "The " + window.location.pathname + " ressource does not exist."
+      );
+
+    componentToRender();
+  });
+
+  // Route the right component when the user use the browsing history
+  window.addEventListener("popstate", () => {
+    const componentToRender = routes[window.location.pathname];
+    componentToRender();
+  });
+};
+
+/**
+ * Call and auto-render of Functional Components associated to the given URL
+ * @param {*} uri - Provides an URL that is associated to a functional component in the
+ * routes array of the Router
+ */
+
+const Redirect = (uri) => {
+  // use Web History API to add current page URL to the user's navigation history & set right URL in the browser (instead of "#")
+  window.history.pushState({}, uri, window.location.origin + uri);
+  // render the requested component
+  const componentToRender = routes[uri];
+  if (routes[uri]) {
+    componentToRender();
+  } else {
+    throw Error("The " + uri + " ressource does not exist");
+  }
+};
+
+export { Router, Redirect };
