@@ -11,6 +11,15 @@ click.addEventListener("click", (event) => {
   if (event.detail === 20) {
     click.innerHTML = "Vous êtes un champion ! ";
   }
+  if (event.detail === 30) {
+    var result = window.prompt("Vous êtes encore en vie ?");
+  }
+  if (result === "Oui" || result === "oui") {
+    window.alert("Alors bonne chance pour la suite :) ");
+  }
+  if (result === "Non" || result === "non") {
+    window.alert("Merci d'avoir participé !");
+  }
 });
 
 let d1 = document.getElementById("d1");
